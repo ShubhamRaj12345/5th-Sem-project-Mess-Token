@@ -1,0 +1,136 @@
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url(D.jpg);
+    color: #333;
+  }
+  
+  header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .logo {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+  
+  main {
+    padding: 20px;
+  }
+  
+  .payment-section {
+    background: white;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 400px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .payment-section h2 {
+    margin-top: 0;
+  }
+  
+  .payment-section p, .payment-section label {
+    margin: 10px 0;
+  }
+  
+  .payment-section input[type="number"] {
+    width: 100px;
+    padding: 5px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .pay-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s;
+  }
+  
+  .pay-button:hover {
+    background-color: #3e8e41;
+  }
+  
+
+  /* Reset default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  padding: 20px;
+}
+
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+}
+
+.navbar .logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.main {
+  margin-top: 20px;
+}
+
+.admin-section {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+#paymentHistoryTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#paymentHistoryTable th,
+#paymentHistoryTable td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+#paymentHistoryTable th {
+  background-color: #4CAF50;
+  color: white;
+}
+
+#paymentHistoryTable td {
+  background-color: #f9f9f9;
+}
+
+#paymentHistoryTable tr:hover {
+  background-color: #f1f1f1;
+}

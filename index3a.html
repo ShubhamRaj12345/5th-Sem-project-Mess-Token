@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mess Page</title>
+  <link rel="stylesheet" href="style3a.css">
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <div class="logo">SISTec Mess System</div>
+      <div class="info">
+        <span id="currentDate"></span>
+        <span id="currentTime"></span>
+      </div>
+      <div class="nav-links">
+        <a href="#contact-us">Contact Us</a>
+        <button class="purchase-button" onclick="window.location.href='index3.html'">Purchase Meal</button>
+        <!--code added by shubham for admin login -->
+        <button class="purchase-button" onclick="window.location.href='indexad.html'">Admin login</button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Mess Schedule Section -->
+    <section id="schedule" class="schedule-section">
+      <h2>Mess Schedule</h2>
+      <p><strong>Start Time:</strong> 11:30 AM</p>
+      <p><strong>End Time:</strong> 2:30 PM</p>
+      <p><strong>Next Meal Slot:</strong> <span id="nextSlot">Calculating...</span></p>
+    </section>
+
+    <!-- Weekly Menu Section -->
+    <section id="menu" class="menu-section">
+      <h2>Weekly Menu</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Day</th>
+            <th>Menu</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Monday</td>
+            <td>Rice, Dal, Paneer Curry, Salad</td>
+          </tr>
+          <tr>
+            <td>Tuesday</td>
+            <td>Chapati, Mixed Veg Curry, Rice, Curd</td>
+          </tr>
+          <tr>
+            <td>Wednesday</td>
+            <td>Fried Rice, Manchurian, Raita</td>
+          </tr>
+          <tr>
+            <td>Thursday</td>
+            <td>Pulav, Dal Fry, Pickle</td>
+          </tr>
+          <tr>
+            <td>Friday</td>
+            <td>Rice, Rajma, Vegetable Korma</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Contact Us Section -->
+    <section id="contact-us" class="contact-us">
+      <h2>Contact Us</h2>
+      <p><strong>Mess Manager:</strong>Amardeep Singh</p>
+      <p><strong>Phone:</strong>9823734634</p>
+      <p><strong>Email:</strong>amardeep@gmail.com</p>
+      <p><strong>Address:</strong>Gandhi Nagar Bhopal , SISTec Mess </p>
+    </section>
+  </main>
+
+  <script>
+    // Update current date and time
+    function updateDateTime() {
+      const now = new Date();
+      document.getElementById("currentDate").textContent = now.toLocaleDateString();
+      document.getElementById("currentTime").textContent = now.toLocaleTimeString();
+    }
+
+    // Calculate next meal slot
+    function calculateNextSlot() {
+      const now = new Date();
+      const messStartTime = new Date();
+      messStartTime.setHours(11,30,0); // 12:00 PM  
+      const messEndTime = new Date();
+      messEndTime.setHours(2, 30, 0); // 3:00 PM
+
+      if (now < messStartTime) {
+        document.getElementById("nextSlot").textContent = "11:30 AM - 12:00 PM";
+      } else if (now > messEndTime) {
+        document.getElementById("nextSlot").textContent = "Mess closed";
+      } else {
+        const nextSlotStart = new Date(now.getTime());
+        const nextSlotEnd = new Date(now.getTime());
+        nextSlotStart.setMinutes(Math.ceil(nextSlotStart.getMinutes() / 30) * 30, 0, 0);
+        nextSlotEnd.setMinutes(nextSlotStart.getMinutes() + 30, 0, 0);
+        document.getElementById("nextSlot").textContent = `${nextSlotStart.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - ${nextSlotEnd.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+      }
+    }
+
+    // Update date, time, and next slot every second
+    setInterval(() => {
+      updateDateTime();
+      calculateNextSlot();
+    }, 1000);
+
+    
+
+    // Initialize date, time, and slot on page load
+    updateDateTime();
+    calculateNextSlot();
+  </script>
+</body>
+</html>

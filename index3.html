@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mess Token System</title>
+  <link rel="stylesheet" href="style3.css">
+</head>
+<body>
+  <header>
+    <h1> SISTEC Mess Token System</h1>
+  </header>
+  <main>
+    <section class="form-section">
+
+      <!--code edit by shubham Raj -->
+      <h2>Lunch Token Entry</h2>
+      <form id="tokenForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+        <label for="plates">Number of Plates:</label>
+        <input type="number" id="plates" name="plates" min="1" placeholder="Enter plates" required>
+
+        <button type="submit">Proceed to Payment</button>
+      </form>
+    </section>
+  
+
+  <script>
+    document.getElementById("tokenForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const plates = document.getElementById('plates').value;
+
+      if (!name || plates <= 0) {
+        alert("Please enter a valid name and number of plates.");
+        return;
+      }
+
+      // Redirect to the next page with data
+      window.location.href = `index3b.html?name=${encodeURIComponent(name)}&plates=${plates}`;
+    });
+  </script>
+
+
+
+    <!-- Section for token history -->
+   <!-- <section class="history-section">
+      <h2>Lunch Token History</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Plates</th>
+          </tr>
+        </thead>
+        <tbody id="tokenHistory">
+         Token history will be dynamically added here -->  
+
+        </tbody>
+      </table>
+    </section>
+
+
+
+
+    <!-- Section for weekly menu -->
+    <section class="menu-section">
+      <h2>Weekly Menu</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Day</th>
+            <th>Menu</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Monday</td>
+            <td>Rice, Dal, Paneer Curry, Salad</td>
+          </tr>
+          <tr>
+            <td>Tuesday</td>
+            <td>Chapati, Mixed Veg Curry, Rice, Curd</td>
+          </tr>
+          <tr>
+            <td>Wednesday</td>
+            <td>Fried Rice, Manchurian, Raita</td>
+          </tr>
+          <tr>
+            <td>Thursday</td>
+            <td>Pulav, Dal Fry, Pickle</td>
+          </tr>
+          <tr>
+            <td>Friday</td>
+            <td>Rice, Rajma, Vegetable Korma</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+  
+  <script src="3.js"></script>
+</body>
+</html>

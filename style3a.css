@@ -1,0 +1,163 @@
+/* General Reset */
+body, h1, h2, p, table, a, button {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body with Sliding Background */
+body {
+  font-family: Arial, sans-serif;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  color: rgb(25, 229, 39);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-size: cover;
+  background-position: center;
+  animation: slideBackground 0s infinite ease-in-out;
+  transition: background-image 5s ease-in-out; /* Smooth transition for background-image */
+  background-image: url('E (2).jpg'); /* Set initial background image */
+}
+
+/* Preloading Background Images */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-size: cover;
+  background-position: center;
+  animation: slideBackground 15s infinite ease-in-out;
+  transition: background-image 10s ease-in-out; /* Ensures smooth transition */
+}
+
+/* Background Image Slider */
+@keyframes slideBackground {
+  0% { background-image: url('home1.jpg'); }
+  33% { background-image: url('E.jpg'); }
+  66% { background-image: url('D.jpg'); }
+  100% { background-image: url('home3.jpg'); }
+}
+
+/* Navbar */
+header {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.7); /* Semi-transparent black */
+  padding: 10px 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+
+/* Main Section */
+main {
+  margin-top: 80px; /* Push content below the navbar */
+}
+
+#content {
+  background: rgba(0, 0, 0, 0.4); /* Semi-transparent overlay */
+  padding: 20px;
+  border-radius: 10px;
+  color: white; /* Ensure text is visible on dark background */
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+p {
+  font-size: 1.2rem;
+}
+
+/* Additional Styles for Header and Button */
+header {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: white;
+  font-size: 1em;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.nav-links a:hover {
+  background-color: #3e8e41;
+}
+
+.purchase-button {
+  background-color: white;
+  color: #4CAF50;
+  border: 2px solid white;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin-right: 30px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.purchase-button:hover {
+  background-color: #3e8e41;
+  color: white;
+}
+
+.schedule-section, .menu-section, .contact-us {
+  background: rgb(26, 25, 32);
+  padding: 35px;
+  margin: 5px auto;
+  max-width: 90%; /* Increased max width for alignment */
+  width: 900px;
+  border-radius: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center; /* Center text in sections */
+}
+
+.menu-section table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto; /* Center align the table */
+}
+
+.menu-section th, .menu-section td {
+  border: 1px solid #ddd;
+  padding: 12px; /* Increased padding for better alignment */
+  text-align: center; /* Align table content in center */
+}
+
+.menu-section th {
+  background-color: #4CAF50;
+  color: white;
+  font-size: 1.1em; /* Slightly larger font for table headers */
+}

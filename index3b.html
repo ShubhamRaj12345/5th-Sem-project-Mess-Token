@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Page</title>
+  <link rel="stylesheet" href="style3b.css">
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <div class="logo">Mess Payment</div>
+      <div class="nav-buttons">
+        <button class="home-button" onclick="goToHome()">Go to Home</button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="payment-section">
+      <h2>Payment Details</h2>
+      <p><strong>Name:</strong> <span id="userName"></span></p>
+      <p><strong>Meal Type:</strong> Lunch</p>
+      <p><strong>Price Per Plate:</strong> ₹80</p>
+
+      <label for="plates">Number of Plates:</label>
+      <input type="number" id="plates" min="1" onchange="calculateTotal()">
+      
+      <p><strong>Total Amount:</strong> ₹<span id="totalAmount">80</span></p>
+
+      <button class="pay-button" onclick="confirmPayment()">Pay Now</button>
+
+      <!-- Payment Success & Receipt -->
+      <div id="receiptSection" style="display: none;">
+        <h3>Payment Successful!</h3>
+        <p>Download your receipt: <a id="receiptLink" href="" target="_blank">Download</a></p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const pricePerPlate = 80;
+
+    // Get parameters from URL
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get("name");
+    const plates = parseInt(params.get("plates")) || 1;  
+    const userId = params.get("userId") || 1;  
+
+    // Populate fields
+    document.getElementById("userName").textContent = name || "Unknown";
+    document.getElementById("plates").value = plates;
+    calculateTotal();
+
+    // Calculate total amount
+    function calculateTotal() {
+      const plates = parseInt(document.getElementById("plates").value);
+      if (isNaN(plates) || plates < 1) {
+        alert("Please enter a valid number of plates.");
+        return;
+      }
+      const total = plates * pricePerPlate;
+      document.getElementById("totalAmount").textContent = total;
+    }
+
+    // Confirm payment
+    async function confirmPayment() {
+      const name = document.getElementById("userName").textContent || "Unknown";
+      const plates = document.getElementById("plates").value;
+      const totalAmount = document.getElementById("totalAmount").textContent;
+      const transactionId = generateTransactionId();
+
+      // Input Validation
+      if (!name || !plates || !totalAmount) {
+        alert("Please fill all the fields before proceeding.");
+        return;
+      }
+
+      try {
+        const response = await fetch("http://localhost:5000/api/payments", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ userId, name, plates, totalAmount, transactionId })
+        });
+
+        const result = await response.json();
+        if (result.success) {
+          document.getElementById("receiptSection").style.display = "block";
+          document.getElementById("receiptLink").href = result.receiptUrl; 
+        } else {
+          alert(result.message || "Payment failed. Please try again.");
+        }
+      } catch (error) {
+        console.error("Error during payment:", error);
+        alert("Payment failed. Please try again later.");
+      }
+    }
+
+  
+    function generateTransactionId() {
+      return "TXN" + Math.random().toString(36).substr(2, 9).toUpperCase();
+    }
+
+    // Navigate to home
+    function goToHome() {
+      window.location.href = "index3a.html"; 
+    }
+  </script>
+
+  <style>
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #333;
+      color: #fff;
+    }
+
+    .home-button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    .home-button:hover {
+      background-color: #45a049;
+    }
+
+    .pay-button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .pay-button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</body>
+</html>

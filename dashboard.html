@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel - Payment History</title>
+  <link rel="stylesheet" href="style3b.css">
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <div class="logo">Admin Panel</div>
+      <button class="logout-btn" onclick="handleLogout()">Log Out</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="admin-section">
+      <h2>Payment History</h2>
+      <div id="errorMessage" class="error-message"></div>
+      <table id="paymentHistoryTable">
+        <thead>
+          <tr>
+            <th>Payment ID</th>
+            <th>Name</th>
+            <th>Transaction ID</th>
+            <th>Number of Plates</th>
+            <th>Total Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Data will be populated here dynamically -->
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <script>
+    async function fetchPaymentHistory() {
+      try {
+        const response = await fetch('http://localhost:5000/api/payments/history');
+        const result = await response.json();
+
+        if (result.success) {
+          const tableBody = document.querySelector('#paymentHistoryTable tbody');
+          tableBody.innerHTML = ''; // Clear previous rows
+
+          result.data.forEach(payment => {
+            const row = document.createElement('tr');
+
+            row.innerHTML = `
+              <td>${payment.payment_id}</td>
+              <td>${payment.name}</td>
+              <td>${payment.transaction_id}</td>
+              <td>${payment.plates}</td>
+              <td>₹${payment.total_amount}</td>
+            `;
+
+            tableBody.appendChild(row);
+          });
+        } else {
+          displayErrorMessage('Failed to fetch payment history.');
+        }
+      } catch (error) {
+        console.error('Error fetching payment history:', error);
+        displayErrorMessage('An error occurred while fetching payment history. Please try again later.');
+      }
+    }
+
+    function handleLogout() {
+      // Logic for logout (e.g., clearing session storage, redirecting to login page)
+      window.location.href = 'indexad.html'; // Replace with the actual login page URL
+    }
+
+    function displayErrorMessage(message) {
+      const errorMessageDiv = document.getElementById('errorMessage');
+      errorMessageDiv.textContent = message;
+      errorMessageDiv.style.color = 'red';
+      errorMessageDiv.style.marginTop = '10px';
+      errorMessageDiv.style.textAlign = 'center';
+    }
+
+    // Fetch payment history on page load
+    fetchPaymentHistory();
+  </script>
+
+  <style>
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #333;
+      color: #fff;
+    }
+
+    .logout-btn {
+      background-color: #ff4d4d;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    .logout-btn:hover {
+      background-color: #ff1a1a;
+    }
+
+    .error-message {
+      font-size: 14px;
+      color: red;
+    }
+  </style>
+</body>
+</html>
